@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Railway Station Navigation</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet" />
+    <link href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" rel="stylesheet" />
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="logo.png" alt="Station Logo" width="100">
+            </div>
+            <div class="nav-buttons">
+                <button class="btn red">Home</button>
+                <button class="btn red">Help</button>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search..." aria-label="Search input" class="search-input">
+                <button class="btn search-button">Search</button>
+            </div>
+        </nav>
+    </header>
+    
+    <main>
+        <section class="hero">
+            <h1>Welcome to the Railway Station</h1>
+            <h2>Find Your Way Easily</h2>
+            <div class="hero-buttons">
+                <input class="input-text" type="text" placeholder="Enter destination" aria-label="Destination input">
+                <button id="navigateButton" class="btn primary">Navigate &gt;</button>
+            </div>
+        </section>
+
+        <section class="map-section">
+            <h2>Interactive Railway Station Map</h2>
+            <div id="station-map" class="map"></div>
+        </section>
+
+        <section class="live-train-tracking">
+            <h2>Live Train Tracking</h2>
+            <div id="train-tracking">
+                <p>Track your train in real-time. Train details will be shown here.</p>
+                <div id="train-info"></div>
+            </div>
+        </section>
+
+        <section class="facility-booking">
+            <h2>Book Facilities</h2>
+            <form id="booking-form">
+                <label for="facility">Choose Facility:</label>
+                <select id="facility" name="facility">
+                    <option value="restroom">Restroom</option>
+                    <option value="food-court">Food Court</option>
+                    <option value="waiting-area">Waiting Area</option>
+                </select>
+                <label for="time">Booking Time:</label>
+                <input type="datetime-local" id="time" name="time">
+                <button type="submit" class="btn primary">Book Now</button>
+            </form>
+        </section>
+
+        <section class="notifications">
+            <h2>Notifications</h2>
+            <div id="notifications">
+                <p>No new notifications.</p>
+            </div>
+        </section>
+
+        <section class="emergency-assistance">
+            <h2>Emergency Assistance</h2>
+            <button id="emergencyButton" class="btn red">Call Emergency Services</button>
+        </section>
+
+        <section class="accessibility">
+            <h2>Accessibility Features</h2>
+            <button id="voiceGuide" class="btn">Voice Guide</button>
+            <button id="translate" class="btn">Translate</button>
+            <button id="textSize" class="btn">Adjust Text Size</button>
+        </section>
+        
+        <section class="user-profile">
+            <h2>User Profile</h2>
+            <button id="profileButton" class="btn">View Profile</button>
+        </section>
+
+        <section class="event-promotions">
+            <h2>Events & Promotions</h2>
+            <div id="events-promotions">
+                <p>Check out the latest events and promotions happening at the station.</p>
+                <div id="events-info"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>Questions? Call 000-000-0000</p>
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#about">About Us</a>
+                <a href="#contact">Contact Us</a>
+                <a href="#privacy">Privacy Policy</a>
+                <a href="#terms">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Leaflet and Routing Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
+    <!-- Initialize Railway Station Map -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Initialize the railway station map
+            var stationMap = L.map('station-map').setView([51.505, -0.09], 16); // Replace with railway station coordinates
+            
+            // Add tile layer (replace with your station-specific map tiles if available)
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(stationMap);
+
+            // Add routing control to map for station-specific routing (if needed)
+            L.Routing.control({
+                waypoints: [
+                    L.latLng(51.505, -0.09), // Replace with actual station start point
+                    L.latLng(51.51, -0.1)   // Replace with actual station end point
+                ],
+                routeWhileDragging: true
+            }).addTo(stationMap);
+
+            // Add optional geocoder for searching within the station map
+            L.Control.geocoder().addTo(stationMap);
+        });
+    </script>
+</body>
+</html>
